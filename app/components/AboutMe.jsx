@@ -27,10 +27,13 @@ const AboutMe = ({toggle,about}) => {
              </div>
              <h2 className='text-3xl font-bold my-4'>Umoh Udonwa</h2>
              <p className='text-2xl'>
-                 I'm a Junior Web developer based Uyo, Nigeria.I have 1 year of
-                 experience and i specilize in creating websites and web apps. I am
-                 open for new opportunities and interesting projects.
+            Designer and developer that spends a lot of time sleeping outside. I'm genuinely motivated by having an outsized impact in everything I do.
              </p>
+
+            <p className='text-2xl'>
+              I collect rare books, I make weird art, and I occasionally write.
+            </p>
+
 
              <div className='flex gap-x-5 mt-5'>
                    <Link href={"https://twitter.com/Udonwa7"} className='hover:underline text-black text-[14px]'>
