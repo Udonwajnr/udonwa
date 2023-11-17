@@ -22,3 +22,8 @@
     font-family: cursive;
   }
 }
+
+::selection {
+  background: black;
+  color:white;
+}
