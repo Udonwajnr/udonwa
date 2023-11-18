@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import AboutMe from './components/AboutMe'
 import { motion } from 'framer-motion' 
+import { tags } from '@/sanity/api'
+import { useEffect } from 'react'
 
 export default function Home() {
   const [about,setAbout] = useState(false)
@@ -18,6 +20,12 @@ export default function Home() {
     close: { opacity: 0 },
   }
 
+
+  useEffect(()=>{
+      tags().then(data=>console.log(data))
+      .catch((err)=>console.log(err))
+
+  },[])
   return (
 
     <Layout>
