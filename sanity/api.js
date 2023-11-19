@@ -9,3 +9,17 @@ export const tags = ()=>{
         `
     )
 }
+
+export const Post = ()=>{
+    return sanityQuery(
+        `
+        *[_type == 'post']{
+            title,
+            preview,
+            tags[]->{title},
+            categories[]->{title},
+            mainImage
+          }
+        `
+    )
+}

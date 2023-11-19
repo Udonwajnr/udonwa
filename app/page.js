@@ -5,11 +5,13 @@ import Link from 'next/link'
 import { useState } from 'react'
 import AboutMe from './components/AboutMe'
 import { motion } from 'framer-motion' 
-import { tags } from '@/sanity/api'
+import { Post } from '@/sanity/api'
 import { useEffect } from 'react'
+import { urlFor } from '@/sanity/sanity'
 
 export default function Home() {
   const [about,setAbout] = useState(false)
+  const [data,setData] = useState([])
   console.log(false)
   const toggleAbout =()=>{
     setAbout(!about)
@@ -22,12 +24,12 @@ export default function Home() {
 
 
   useEffect(()=>{
-      tags().then(data=>console.log(data))
+      Post().then(data=>setData(data))
       .catch((err)=>console.log(err))
 
   },[])
+  console.log(data)
   return (
-
     <Layout>
       <div className='flex justify-between py-[30px] pr[20px] lg:py-[0px] h-full font-mono lg:flex-col'>
       
@@ -139,44 +141,51 @@ export default function Home() {
 
         {/* second section */}
 
-        <div className='lg:mt-10 max-w-full border-[#cccccc] border-dotted  overflow-y-scroll lg:overflow-visible flex flex-col gap-y-9 p-[40px] lg:p-[0px]'>
+        <div className='lg:my-10 max-w-full border-[#cccccc] border-dotted  overflow-y-scroll lg:overflow-visible flex flex-col gap-y-9 p-[40px] lg:p-[0px]'>
             {/* works */}
-            <div className='  w-full flex flex-col relative'>
-              {/* tag */}
-                  <div className='bg-white px-5 py-2 absolute top-6 left-7 lg:text-[10px] lg:p-1 lg:left-3'>
-                    <span className='text-black text-sm'>Web Design</span>
-                  </div>
-                {/* tag ending */}
-                <div className='border shadow-lg hover:border-black rounded-xl lg:border-2'>
-                  <Link href={"/"}>
-                   <img src={"./img1.png"} className='w-full h-full rounded-xl'/>
-                  </Link>
-                </div>
+            {
+              data.map((data)=>{
+                return(
+                  <>
+                    <div className='  w-full flex flex-col relative'>
+                      {/* tag */}
+                          <div className='bg-white px-5 py-2 absolute top-6 left-7 lg:text-[10px] lg:p-1 lg:left-3'>
+                            <span className='text-black text-sm'>{data.categories[0]?.title}</span>
+                          </div>
+                        {/* tag ending */}
+                        <div className='border shadow-lg hover:border-black rounded-xl lg:border-2'>
+                          <Link href={"/"}>
+                          <img src={urlFor(data.mainImage).url()} className='w-full h-full rounded-xl'/>
+                          </Link>
+                        </div>
 
-                <div className=' h-full px-5 py-5 lg:p-2 bg-[#f6f6f6] flex justify-between rounded-xl'>
-                  <Link href={"https://starbucks-home-design.vercel.app/"} className='hover:underline text-black text-[20px] lg:text-base'>StarBucks Landing Page</Link>
+                        <div className=' h-full px-5 py-5 lg:p-2 bg-[#f6f6f6] flex justify-between rounded-xl'>
+                          <Link href={data.preview} className='hover:underline text-black text-[20px] lg:text-base capitalize'>{data.title}</Link>
 
-                  <div className='flex  items-center gap-x-5'>
-                    <div className='flex items-center gap-x-3'>
+                          <div className='flex  items-center gap-x-5 lg:hidden'>
+                            <div className='flex items-center gap-x-3'>
+                              <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden flex items-center gap-x-3'>
+                                <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path fill="currentColor" d="M12.005 15.154q1.524 0 2.586-1.067t1.063-2.592q0-1.524-1.067-2.586t-2.592-1.063q-1.524 0-2.586 1.067t-1.063 2.592q0 1.524 1.067 2.586t2.592 1.063ZM12 14.2q-1.125 0-1.913-.787T9.3 11.5q0-1.125.788-1.913T12 8.8q1.125 0 1.913.788T14.7 11.5q0 1.125-.787 1.913T12 14.2Zm.003 3.8q-3.25 0-5.922-1.768q-2.673-1.769-4.004-4.732q1.33-2.963 4.001-4.732Q8.748 5 11.998 5q3.248 0 5.921 1.768q2.673 1.769 4.004 4.732q-1.33 2.963-4.001 4.732Q15.252 18 12.002 18ZM12 11.5Zm0 5.5q2.825 0 5.188-1.488T20.8 11.5q-1.25-2.525-3.613-4.013T12 6Q9.175 6 6.812 7.488T3.2 11.5q1.25 2.525 3.613 4.013T12 17Z"></path></svg>
+                                <span className=' text-black text-[14px] lg:text-xs lg:hidden'>Preview</span>
+                              </Link>
+                            </div>
 
-                      <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5' viewBox="0 0 24 24"><path fill="currentColor" d="M12.005 15.154q1.524 0 2.586-1.067t1.063-2.592q0-1.524-1.067-2.586t-2.592-1.063q-1.524 0-2.586 1.067t-1.063 2.592q0 1.524 1.067 2.586t2.592 1.063ZM12 14.2q-1.125 0-1.913-.787T9.3 11.5q0-1.125.788-1.913T12 8.8q1.125 0 1.913.788T14.7 11.5q0 1.125-.787 1.913T12 14.2Zm.003 3.8q-3.25 0-5.922-1.768q-2.673-1.769-4.004-4.732q1.33-2.963 4.001-4.732Q8.748 5 11.998 5q3.248 0 5.921 1.768q2.673 1.769 4.004 4.732q-1.33 2.963-4.001 4.732Q15.252 18 12.002 18ZM12 11.5Zm0 5.5q2.825 0 5.188-1.488T20.8 11.5q-1.25-2.525-3.613-4.013T12 6Q9.175 6 6.812 7.488T3.2 11.5q1.25 2.525 3.613 4.013T12 17Z"></path></svg>
-                      </Link>
-                      <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>Preview</Link>
+                            {/* <div className='flex items-center gap-x-3'>
+                              <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>
+                                <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5'  viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"></path></svg>
+                              </Link>
+                              <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>Vew Repo</Link>
+                            </div> */}
+
+                          </div>
+                        </div>
                     </div>
+                  </>
+                )
+              })
+            }
 
-                    <div className='flex items-center gap-x-3'>
-                      <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>
-                         <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5'  viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"></path></svg>
-                      </Link>
-                      <Link href={"/"} className='hover:underline text-black text-[14px] lg:text-xs lg:hidden'>Vew Repo</Link>
-                    </div>
-
-                  </div>
-                </div>
-            </div>
-
-            <div className='  w-full flex flex-col'>
+            {/* <div className='  w-full flex flex-col'>
                 <div className=''>
                    <img src={"./img1.png"} className='w-full h-full'/>
                 </div>
@@ -203,7 +212,7 @@ export default function Home() {
 
                   </div>
                 </div>
-            </div>
+            </div> */}
 
         </div>
 
