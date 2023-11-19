@@ -12,6 +12,7 @@ import { urlFor } from '@/sanity/sanity'
 export default function Home() {
   const [about,setAbout] = useState(false)
   const [data,setData] = useState([])
+  const [test,setTest] = useState(null)
   console.log(false)
   const toggleAbout =()=>{
     setAbout(!about)
@@ -22,13 +23,19 @@ export default function Home() {
     close: { opacity: 0 },
   }
 
+  const handleChange =(e)=>{
+    let {checked,value} = e.target
+    setTest(value)
+  }
+  console.log(test)
+
 
   useEffect(()=>{
       Post().then(data=>setData(data))
       .catch((err)=>console.log(err))
 
   },[])
-  console.log(data)
+  console.log(data[0]?.tags)
   return (
     <Layout>
       <div className='flex justify-between py-[30px] pr[20px] lg:py-[0px] h-full font-mono lg:flex-col'>
@@ -38,6 +45,9 @@ export default function Home() {
           <div className='flex justify-between items-center w-full'>
             <Link href={"/"} className='text-lg'>Udonwa.org</Link>
             {/* <Link href={"/"}>About</Link> */}
+            <Link target='_blank' href={"/Umoh's_resume.pdf"} download className='hidden lg:block'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M13 9h5.5L13 3.5V9M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2h9m3-4v-2H6v2h12Z"></path></svg>
+            </Link>
           </div>
 
           {/* <div className='h-4 border'></div> */}
@@ -60,61 +70,61 @@ export default function Home() {
         {/* use the coding font */}
         <div className='flex flex-wrap gap-2 lg:hidden pr-[20px]'>
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 px-4 border gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>App Development</label>
+            <input type='checkbox' onChange={handleChange} value={"App Development"} id='app' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='app' className='cursor-pointer hover:text-black text-[14px] font-bold'>App Development</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Web Development</label>
+            <input onChange={handleChange} id='web' value={"Web"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Web' className='cursor-pointer hover:text-black text-[14px] font-bold'>Web Development</label>
           </div>
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Html/Css</label>
+            <input onChange={handleChange} id='Html/Css' value={"Html/Css"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Html/Css' className='cursor-pointer hover:text-black text-[14px] font-bold'>Html/Css</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Javascript</label>
+            <input onChange={handleChange} id='Javascript' value={"Javascript"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Javascript' className='cursor-pointer hover:text-black text-[14px] font-bold'>Javascript</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>ReactJS</label>
+            <input onChange={handleChange} id='ReactJs' value={"ReactJs"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='ReactJs' className='cursor-pointer hover:text-black text-[14px] font-bold'>ReactJS</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>React Native</label>
+            <input onChange={handleChange} id='React Native' value={"React Native"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='ReactNative' className='cursor-pointer hover:text-black text-[14px] font-bold'>React Native</label>
           </div>
         
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>TypeScript</label>
+            <input onChange={handleChange} id='TypeScript' value={"TypeScript"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='TypeScript' className='cursor-pointer hover:text-black text-[14px] font-bold'>TypeScript</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>NextJS</label>
+            <input onChange={handleChange} id='NextJs' value={"NextJs"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='NextJs' className='cursor-pointer hover:text-black text-[14px] font-bold'>NextJS</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Express</label>
+            <input type='checkbox' onChange={handleChange} id='Express' value={"Express"} className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Express' className='cursor-pointer hover:text-black text-[14px] font-bold'>Express</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Postgres</label>
+            <input onChange={handleChange} id='Postgres' value={"Postgres"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Postgres' className='cursor-pointer hover:text-black text-[14px] font-bold'>Postgres</label>
           </div>
         
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Mongodb</label>
+            <input onChange={handleChange} id='Mongodb' value={"Mongodb"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Mongodb' className='cursor-pointer hover:text-black text-[14px] font-bold'>Mongodb</label>
           </div>
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' className='cursor-pointer h-4 w-4'/>
-            <label className='cursor-pointer hover:text-black text-[14px] font-bold'>Sequelize</label>
+            <input onChange={handleChange} id='Sequelize' value={"Sequelize"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Sequelize' className='cursor-pointer hover:text-black text-[14px] font-bold'>Sequelize</label>
           </div>
         </div>
 
@@ -143,8 +153,21 @@ export default function Home() {
 
         <div className='lg:my-10 max-w-full border-[#cccccc] border-dotted  overflow-y-scroll lg:overflow-visible flex flex-col gap-y-9 p-[40px] lg:p-[0px]'>
             {/* works */}
+
             {
-              data.map((data)=>{
+              data.filter((data)=>{
+               if(test === "NextJs"){
+                    
+                  return data.tags.map((data)=>{
+                    data.title.includes("NextJs")
+                    console.log(true,"that is it")
+                  })
+                }
+                return data
+                
+              }              
+
+              ).map((data)=>{
                 return(
                   <>
                     <div className='  w-full flex flex-col relative'>
