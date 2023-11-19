@@ -149,12 +149,24 @@ export default function Home() {
                   <>
                     <div className='  w-full flex flex-col relative'>
                       {/* tag */}
-                          <div className='bg-white px-5 py-2 absolute top-6 left-7 lg:text-[10px] lg:p-1 lg:left-3'>
+                          <div className='bg-white px-5 py-2 absolute top-6 left-7 lg:text-[10px] lg:p-1 lg:left-3 z-40'>
                             <span className='text-black text-sm'>{data.categories[0]?.title}</span>
                           </div>
                         {/* tag ending */}
-                        <div className='border shadow-lg hover:border-black rounded-xl lg:border-2'>
-                          <Link href={"/"}>
+                        <div className='border shadow-lg hover:border-black rounded-xl lg:border-2 relative'>
+                          <div className=' flex gap-x-4 items-center absolute z-30 bottom-4 left-7 lg:hidden'>
+                            {
+                              data.tags.map((data,index)=>{
+                                return(
+                                  <span key={index} className='bg-black text-white px-2 py-1 rounded-md'>
+                                    {data.title}
+                                  </span>
+                                )
+                              })
+                            }
+                          </div>
+
+                          <Link href={data.preview}>
                           <img src={urlFor(data.mainImage).url()} className='w-full h-full rounded-xl'/>
                           </Link>
                         </div>
