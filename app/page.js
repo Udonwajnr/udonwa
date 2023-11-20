@@ -172,7 +172,7 @@ export default function Home() {
                   <>
                     <div className='  w-full flex flex-col relative'>
                       {/* tag */}
-                          <div className='bg-white px-5 py-2 absolute top-6 left-7 lg:text-[10px] lg:p-1 lg:left-3 z-40'>
+                          <div className='bg-white px-5 py-2 absolute top-10 left-7 lg:text-[10px] lg:p-1 lg:left-3 z-40 rounded-md'>
                             <span className='text-black text-sm'>{data.categories[0]?.title}</span>
                           </div>
                         {/* tag ending */}
