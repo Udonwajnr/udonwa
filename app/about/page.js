@@ -7,7 +7,7 @@ const page = () => {
     <Layout>
       <div className='lg:hidden'>
         <div className='border rounded-full w-12 h-12 flex justify-center items-center absolute right-7 top-5 hover:bg-[#f1f1f1] cursor-pointer'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m8 8l32 32M8 40L40 8"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" strokeLinejoin="round" strokeWidth="4" d="m8 8l32 32M8 40L40 8"></path></svg>
         </div>
 
           <section className='flex justify-between items-center gap-x-8 py-[30px] pr[20px] h-full font-mono'>

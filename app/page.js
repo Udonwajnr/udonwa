@@ -8,12 +8,14 @@ import { motion } from 'framer-motion'
 import { Post } from '@/sanity/api'
 import { useEffect } from 'react'
 import { urlFor } from '@/sanity/sanity'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Home() {
   const [about,setAbout] = useState(false)
   const [data,setData] = useState([])
   const [test,setTest] = useState(null)
-  console.log(false)
+  const [loading,setLoading] = useState(true)
   const toggleAbout =()=>{
     setAbout(!about)
   }
@@ -27,15 +29,16 @@ export default function Home() {
     let {checked,value} = e.target
     setTest(value)
   }
-  console.log(test)
 
 
   useEffect(()=>{
-      Post().then(data=>setData(data))
+      Post().then(data=>{
+        setData(data)
+        setLoading(false)
+      })
       .catch((err)=>console.log(err))
 
   },[])
-  console.log(data[0]?.tags)
   return (
     <Layout>
       <div className='flex justify-between py-[30px] pr[20px] lg:py-[0px] h-full font-mono lg:flex-col'>
@@ -70,60 +73,53 @@ export default function Home() {
         {/* use the coding font */}
         <div className='flex flex-wrap gap-2 lg:hidden pr-[20px]'>
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 px-4 border gap-x-4 rounded-3xl'>
-            <input type='checkbox' onChange={handleChange} value={"App Development"} id='app' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='app' className='cursor-pointer hover:text-black text-[14px] font-bold'>App Development</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='web' value={"Web"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Web' className='cursor-pointer hover:text-black text-[14px] font-bold'>Web Development</label>
           </div>
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='Html/Css' value={"Html/Css"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Html/Css' className='cursor-pointer hover:text-black text-[14px] font-bold'>Html/Css</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='Javascript' value={"Javascript"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Javascript' className='cursor-pointer hover:text-black text-[14px] font-bold'>Javascript</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='ReactJs' value={"ReactJs"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='ReactJs' className='cursor-pointer hover:text-black text-[14px] font-bold'>ReactJS</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='React Native' value={"React Native"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='ReactNative' className='cursor-pointer hover:text-black text-[14px] font-bold'>React Native</label>
           </div>
         
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='TypeScript' value={"TypeScript"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='TypeScript' className='cursor-pointer hover:text-black text-[14px] font-bold'>TypeScript</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='NextJs' value={"NextJs"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='NextJs' className='cursor-pointer hover:text-black text-[14px] font-bold'>NextJS</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input type='checkbox' onChange={handleChange} id='Express' value={"Express"} className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Express' className='cursor-pointer hover:text-black text-[14px] font-bold'>Express</label>
           </div>
 
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='Postgres' value={"Postgres"} type='checkbox' className='cursor-pointer h-4 w-4'/>
+            <label htmlFor='Express' className='cursor-pointer hover:text-black text-[14px] font-bold'>Rapid Api</label>
+          </div>
+
+          <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
             <label htmlFor='Postgres' className='cursor-pointer hover:text-black text-[14px] font-bold'>Postgres</label>
           </div>
         
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center  py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='Mongodb' value={"Mongodb"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Mongodb' className='cursor-pointer hover:text-black text-[14px] font-bold'>Mongodb</label>
           </div>
+
           <div className='text-[#1A1A1A99] hover:text-black cursor-pointer flex items-center justify-center py-1.5 border px-4 gap-x-4 rounded-3xl'>
-            <input onChange={handleChange} id='Sequelize' value={"Sequelize"} type='checkbox' className='cursor-pointer h-4 w-4'/>
             <label htmlFor='Sequelize' className='cursor-pointer hover:text-black text-[14px] font-bold'>Sequelize</label>
           </div>
         </div>
@@ -151,13 +147,12 @@ export default function Home() {
 
         {/* second section */}
 
-        <div className='lg:my-10 max-w-full border-[#cccccc] border-dotted  overflow-y-scroll lg:overflow-visible flex flex-col gap-y-9 p-[40px] lg:p-[0px]'>
+        <div className='lg:my-10 w-full border-[#cccccc] border-dotted  overflow-y-scroll lg:overflow-visible flex flex-col gap-y-9 p-[40px] lg:p-[0px]'>
             {/* works */}
 
-            {
+            { !loading? 
               data.filter((data)=>{
-               if(test === "NextJs"){
-                    
+               if(test === "NextJs"){   
                   return data.tags.map((data)=>{
                     data.title.includes("NextJs")
                     console.log(true,"that is it")
@@ -166,11 +161,9 @@ export default function Home() {
                 return data
                 
               }              
-
-              ).map((data)=>{
+              ).map((data,index)=>{
                 return(
-                  <>
-                    <div className='  w-full flex flex-col relative'>
+                    <div key={index} className='w-full flex flex-col relative '>
                       {/* tag */}
                           <div className='bg-white px-5 py-2 absolute top-10 left-7 lg:text-[10px] lg:p-1 lg:left-3 z-40 rounded-md'>
                             <span className='text-black text-sm'>{data.categories[0]?.title}</span>
@@ -215,9 +208,10 @@ export default function Home() {
                           </div>
                         </div>
                     </div>
-                  </>
                 )
               })
+              :
+                <Skeleton count={5} className='w-full flex flex-col relative  max-w-full h-[500px] md:h-56' />
             }
 
             {/* <div className='  w-full flex flex-col'>
@@ -258,7 +252,6 @@ export default function Home() {
             </Link>
         </div>
       </div>     
-
       
         <AboutMe toggle={toggleAbout} about={about}/>
     </Layout>
