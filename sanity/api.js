@@ -13,7 +13,7 @@ export const tags = ()=>{
 export const Post = ()=>{
     return sanityQuery(
         `
-        *[_type == 'post']{
+        *[_type == 'post'] | order(_createdAt desc){
             title,
             preview,
             tags[]->{title},
